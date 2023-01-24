@@ -1,5 +1,5 @@
-import { act, renderHook } from "@testing-library/react-hooks";
-import { useAuth } from "./useAuth";
+import { act, renderHook } from '@testing-library/react-hooks';
+import { useAuth } from './useAuth';
 
 //***Add This***
 const originalError = console.error;
@@ -32,20 +32,20 @@ afterAll(() => {
  * -> login
  * -> logout
  */
-describe("useAuth", () => {
-  it("should returns default value", () => {
+describe('useAuth', () => {
+  it('should returns default value', () => {
     const { result } = renderHook(() => useAuth());
 
     expect(result.current.user).toBe(null);
     expect(result.current.isAuthenticated).toBe(false);
-    expect(typeof result.current.login).toBe("function");
-    expect(typeof result.current.logout).toBe("function");
+    expect(typeof result.current.login).toBe('function');
+    expect(typeof result.current.logout).toBe('function');
 
     // console.log(result.current)
     // const { result } = reenderHook(() => useAuth());
   });
 
-  it("should isAuthenticated to be false and user to be null when logout was called", () => {
+  it('should isAuthenticated to be false and user to be null when logout was called', () => {
     const { result } = renderHook(() => useAuth());
 
     act(() => {
@@ -56,21 +56,21 @@ describe("useAuth", () => {
     expect(result.current.user).toBe(null);
   });
 
-  it("should isAuthenticated to be true and user contains complete infos when login was called correctly", () => {
+  it('should isAuthenticated to be true and user contains complete infos when login was called correctly', () => {
     const { result } = renderHook(() => useAuth());
 
     act(() => {
       result.current.login({
-        login: "email@domain.com",
-        password: "secret",
+        login: 'email@domain.com',
+        password: 'secret'
       });
     });
 
     expect(result.current.user).toMatchObject({
-      name: "Jhon",
-      permissions: [""],
+      name: 'Jhon',
+      permissions: [''],
       isAdmin: true,
-      token: "token",
+      token: 'token'
     });
     expect(result.current.isAuthenticated).toBe(true);
   });
